@@ -1,0 +1,35 @@
+<div class="popup-container" *ngIf="popupData?.popupType === 'entity_addExample'">
+  <div class="popup">
+    <p class="popup__title">{{popupData.popupTitle}}</p>
+    <div class="popup__addBlock">
+      <p class="popup__addBlockText">{{'entity.entity-name' | translate}}: <span>{{popupData?.entityId}}</span></p>
+      <div class="popup__addBlockList">
+        <div class="popup__addBlockListItem" *ngFor="let example of examples; let i = index">
+          <p class="popup__addBlockListItemText"
+             [contentEditable]="example.editMode"
+             (input)="onEdit($event)"
+          >{{example.example}}</p>
+          <div class="popup__addBlockListItemBtns" *ngIf="example.editMode">
+            <div class="addBlockCancelBtn" (click)="cancelEdit(i)" translate>cancel</div>
+            <div class="addBlockSaveBtn" (click)="saveEdit(i)" translate>save</div>
+          </div>
+          <div class="popup__addBlockListItemBtns" *ngIf="!example.editMode">
+            <div class="popup__addBlockListItemBtn delete" (click)="deleteExample(i)"></div>
+            <div class="popup__addBlockListItemBtn edit" (click)="editExample(i)"></div>
+          </div>
+        </div>
+        <form class="popup__addBlockListField" [formGroup]="exampleForm" (ngSubmit)="onExamleAdd()">
+          <input class="popup__addBlockListFieldInput"
+                 placeholder="Add example"
+                 formControlName="newExample"/>
+          <button class="popup__addBlockListFieldBtn" translate>add</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup__btns">
+      <button class="popup__btn cancelBtn" id="cancelBtn" (click)="cancel()" translate>cancel</button>
+      <button class="popup__btn mainBtn" id="addExamples" (click)="onBtnClick()" translate>add-all-examples</button>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,29 @@
+@import "../../assets/styles/variables";
+
+.intentsPage{
+  &__tabs{
+    display: flex;
+  }
+  &__tab{
+    opacity: 0.5;
+    font-size: 1.6rem;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: $font-color;
+    padding: 10px 0;
+    &:first-child{
+      margin-right: 30px;
+    }
+    &:hover{
+      opacity: 0.7;
+      cursor: pointer;
+    }
+  }
+  &__tab.active{
+    opacity: 1;
+    border-bottom: 3px solid $font-color;
+  }
+}

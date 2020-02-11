@@ -1,0 +1,90 @@
+<div class="main">
+  <p class="mainTitle" translate>entity.entities</p>
+  <button class="trainBtn">Train</button>
+</div>
+<div class="content">
+  <div class="content__controls">
+    <div class="content__search">
+      <input
+        class="content__searchInput"
+        placeholder="Search entities"
+        (input)="onSearch($event)"
+      />
+    </div>
+  </div>
+  <div class="content__list">
+    <div class="content__listItem" *ngFor="let entity of entities">
+      <div class="content__listItemInfo">
+        <span class="content__listItemTitle">{{entity.name}}</span>
+        <span class="content__listItemSubtitle">{{entity.examples.length}} {{'example' | translate}}</span>
+      </div>
+      <div class="content__listItemBtns">
+        <p class="content__listItemText" *ngIf="addMessageExamples?.id === entity.id">
+          {{addMessageExamples?.text}}</p>
+        <div class="content__listItemBtn delete"
+             (click)="openDeletePopup(entity.id)"
+             *ngIf="authService.user.allowedActions.DELETE_ENTITY"
+        >
+        </div>
+        <div class="content__listItemBtn edit"
+             [routerLink]="['/entities-page', 'update-entity']"
+             [queryParams]="{ entity: entity.id}"
+             *ngIf="authService.user.allowedActions.UPDATE_ENTITY"
+        ></div>
+        <div class="content__listItemBtn options dropdown" appDropdown>
+          <div class="content__listItemOptions ">
+            <div class="content__listItemOption"
+                 (click)="openAddExamplePopup(entity.id)"
+                 *ngIf="authService.user.allowedActions.ADD_EXAMPLES_TO_ENTITY"
+                 translate
+            >add-example</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content__btnContainer">
+    <button class="content__btn withIcon"
+            [routerLink]="['/entities-page', 'add-entity']"
+            *ngIf="authService.user.allowedActions.CREATE_ENTITY"
+    >
+      <object class="content__btnIcon" type="image/svg+xml" data="../../../assets/img/icons/group.svg">
+      </object>
+      {{'entity.add-new-entity' | translate}}
+    </button>
+  </div>
+  <div class="content__pagination" *ngIf="pagination">
+    <span class="content__paginationBtn prev"
+          [routerLink]
+          [queryParams]="{ pageNumber: +page - 1}"
+          *ngIf="+page !== 1"
+    >
+    </span>
+    <div class="content__paginationItems">
+      <div
+        class="content__paginationItem"
+        *ngFor="let pageNum of paginationsPages"
+        [routerLink] [queryParams]="{ pageNumber: pageNum }"
+        routerLinkActive="active"
+      >
+        {{pageNum}}
+      </div>
+    </div>
+    <span class="content__paginationBtn next"
+          [routerLink]
+          [queryParams]="{ pageNumber: +page + 1 }"
+          *ngIf="+page !== paginationNumber"
+    >
+    </span>
+  </div>
+</div>
+<app-delete-entity-popup
+  [popupData]="deleteEntityPopupData"
+  (btnAction)='onBtnAction($event)'>
+
+</app-delete-entity-popup>
+<app-add-examples-entities-popup
+  [popupData]="addExamplePopupData"
+  (btnAction)='onBtnAction($event)'
+>
+</app-add-examples-entities-popup>

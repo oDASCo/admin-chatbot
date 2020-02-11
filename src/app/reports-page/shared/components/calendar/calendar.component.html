@@ -1,0 +1,40 @@
+<div class='calendar'>
+  <div id='calendar-container'>
+    <div>
+      <form [formGroup]='dateForm' *ngIf="false">
+        <input type="text" name='dateFrom' formControlName='dateFrom' placeholder='From Date'>
+        <input type="text" placeholder='To Date' name='dateTo' formControlName='dateTo'>
+      </form>
+    </div>
+    <div class='calendar-controls'>
+        <span class="content__paginationBtn prev" (click)='previousMonth()'></span>
+      <div class="calendar-month">{{date.format('MMMM ')}}</div>
+      <span class="content__paginationBtn next" (click)='nextMonth()'></span>
+    </div>
+    <div class='calendar-titles'>
+      <div class='calendar-title'>MON</div>
+      <div class='calendar-title'>TUE</div>
+      <div class='calendar-title'>WED</div>
+      <div class='calendar-title'>THU</div>
+      <div class='calendar-title'>FRI</div>
+      <div class='calendar-title'>SUT</div>
+      <div class='calendar-title'>SUN</div>
+    </div>
+    <div class='calendar-days-row'>
+      <div *ngFor="let day of daysArr">
+        <div class='calendar-days'
+             (click)='selectedDate(day)'
+             [ngClass]="{
+               'inactive ': !day,
+               'selected': isSelected(day),
+               'today': todayCheck(day),
+               'start': isStartDate(day),
+               'end': isEndDate(day),
+               'middle': isMiddleDate(day)
+               }"
+        >
+          {{day?.date()}}</div>
+      </div>
+    </div>
+  </div>
+</div>

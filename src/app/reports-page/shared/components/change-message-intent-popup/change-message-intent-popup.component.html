@@ -1,0 +1,13 @@
+<div class="popup-container" *ngIf="popupData">
+  <div class="popup">
+    <p class="popup__title" translate>intent.add-example-to-intent</p>
+    <div class="popup__addBlock">
+      <p class="popup__addBlockText">The example <span>{{'"' + popupData.messageText + '"'}}</span> will be added to intent <span>{{'"' + popupData.messageIntent + '"'}}”</span>?
+        Do you want to continue?</p>
+    </div>
+    <div class="popup__btns">
+      <button class="popup__btn cancelBtn" id="cancelBtn" (click)="closePopup()" translate>cancel</button>
+      <button class="popup__btn mainBtn" id="addExamples" (click)="updateIntentName()" translate>add</button>
+    </div>
+  </div>
+</div>

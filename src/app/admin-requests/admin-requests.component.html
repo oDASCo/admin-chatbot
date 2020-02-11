@@ -1,0 +1,42 @@
+<div class="app-wrapper">
+  <app-sidebar></app-sidebar>
+  <div class="main-container">
+    <div class="adminTable">
+      <div class="adminTable__head">
+        <div class="adminTable__headCol">
+          {{'register.full-name' | translate}}
+        </div>
+        <div class="adminTable__headCol">
+          Email
+        </div>
+        <div class="adminTable__headCol">
+          {{'admin.email-activation' | translate}}
+        </div>
+        <div class="adminTable__headCol">
+          {{'admin.admin-approval' | translate}}
+        </div>
+      </div>
+      <div class="adminTable__body">
+        <div class="adminTable__line" *ngFor="let user of users">
+          <div class="adminTable__lineCol">
+            {{user?.fullName}}
+          </div>
+          <div class="adminTable__lineCol">
+            {{user?.email}}
+          </div>
+          <div class="adminTable__lineCol">
+            {{user?.emailActivation}}
+          </div>
+          <div class="adminTable__lineCol">
+            <p *ngIf="user?.adminApproval">approved</p>
+            <button *ngIf="!user?.adminApproval"
+                    class="adminTable__lineBtn"
+                    (click)="approveUser(user.id)"
+            > {{'admin.approve' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

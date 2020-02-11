@@ -1,0 +1,28 @@
+<div class="app-wrapper">
+  <app-sidebar></app-sidebar>
+  <div class="main-container">
+    <div class="intentsPage">
+      <div class="main" *ngIf="showTabs">
+        <div class="intentsPage__tabs">
+          <div class="intentsPage__tab"
+               [routerLink]="['/intents-page', 'intents']"
+               [queryParams]="{ pageNumber: 1 }"
+               [ngClass]="{'active': activeRoute === 'intents'}"
+               translate
+          >intent.intents
+          </div>
+          <div class="intentsPage__tab"
+               [routerLink]="['/intents-page', 'fallbacks']"
+               [ngClass]="{'active': activeRoute === 'fallbacks'}"
+               translate
+          >fallback.fallbacks
+          </div>
+        </div>
+        <button class="trainBtn">Train</button>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+

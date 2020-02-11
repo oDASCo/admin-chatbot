@@ -1,0 +1,78 @@
+<form class="addIntentsPage" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="addIntentsPage__head">
+    <p class="addIntentsPage__title mainTitle" translate>intent.update-intent</p>
+    <button class="content__btn" type="submit" translate>train</button>
+  </div>
+  <div class="addIntentsPage__body">
+    <div class="addIntentsPage__field">
+      <p class="addIntentsPage__fieldText">{{'intent.intent-name' | translate}}</p>
+      <input class="addIntentsPage__fieldInput" formControlName="intentName"/>
+    </div>
+    <div class="addIntentsPage__dropDownLines">
+      <div class="addIntentsPage__dropDownLine" appDropdown>
+        <div class="addIntentsPage__dropDownTitle">
+          <p translate>examples</p>
+          <div class="addIntentsPage__dropDownTitleIcon  dropdown"></div>
+        </div>
+        <div class="addBlockListItem" *ngFor="let example of examples; let i = index">
+          <p class="addBlockListItemText"
+             [contentEditable]="example.editMode"
+             (input)="onEditExample($event)"
+             [innerHTML]="example.example"
+          ></p>
+          <div class="popup__addBlockListItemBtns" *ngIf="example.editMode">
+            <div class="addBlockCancelBtn" (click)="cancelEditExample(i)" translate>cancel</div>
+            <div class="addBlockSaveBtn" (click)="saveEditExample(i)" translate>save</div>
+          </div>
+          <div class="addBlockListItemBtns" *ngIf="!example.editMode">
+            <div class="addBlockListItemBtn delete" (click)="deleteExample(i)"></div>
+            <div class="addBlockListItemBtn edit" (click)="editExample(i)"></div>
+          </div>
+        </div>
+        <form class="addIntentsPage__dropDownField"
+              [formGroup]="exampleForm"
+              (ngSubmit)="onExampleAdd()"
+        >
+          <input class="addIntentsPage__dropDownFieldInput"
+                 placeholder="{{'add-example' | translate}}"
+                 formControlName="newExample"
+          />
+          <button class="addIntentsPage__dropDownFieldBtn" type="submit" translate>add</button>
+        </form>
+      </div>
+      <div class="addIntentsPage__dropDownLine" appDropdown>
+        <div class="addIntentsPage__dropDownTitle">
+          <p translate>responses</p>
+          <div class="addIntentsPage__dropDownTitleIcon  dropdown"></div>
+        </div>
+        <div class="addBlockListItem" *ngFor="let response of responses; let i = index">
+          <p class="addBlockListItemText"
+             [contentEditable]="response.editMode"
+             (input)="onEditResponse($event)"
+          >{{response.name}}</p>
+          <div class="popup__addBlockListItemBtns" *ngIf="response.editMode">
+            <div class="addBlockCancelBtn" (click)="cancelEditResponse(i)" translate>cancel</div>
+            <div class="addBlockSaveBtn" (click)="saveEditResponse(i)" translate>save</div>
+          </div>
+          <div class="addBlockListItemBtns" *ngIf="!response.editMode">
+            <div class="addBlockListItemBtn delete" (click)="deleteResponse(i)"></div>
+            <div class="addBlockListItemBtn edit" (click)="editResponse(i)"></div>
+          </div>
+        </div>
+        <form class="addIntentsPage__dropDownField " [formGroup]="responseForm" (ngSubmit)="onResponseAdd()">
+          <input class="addIntentsPage__dropDownFieldInput"
+                 placeholder="{{'add-response' | translate}}"
+                 formControlName="newResponse"
+          />
+          <button class="addIntentsPage__dropDownFieldBtn" type="submit" translate>add</button>
+        </form>
+      </div>
+    </div>
+    <div class="addIntentsPage__deleteBtn"
+         (click)="deleteIntent()"
+         *ngIf="authService.user.allowedActions.DELETE_INTENT"
+         translate>
+      intent.delete-intent
+    </div>
+  </div>
+</form>

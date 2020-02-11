@@ -1,0 +1,30 @@
+<div class="loginFormContainer">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="loginForm">
+    <p class="loginForm__title" translate>login.login-to-chatbot</p>
+    <div  class="loginForm__field">
+      <label class="loginForm__label">{{'login.email' | translate }}:</label>
+      <input type="text"
+             formControlName="username"
+             class="loginForm__input"
+             placeholder="{{'login.username' | translate}}" required>
+    </div>
+    <div  class="loginForm__field">
+      <label class="loginForm__label">{{'login.password' | translate }}:</label>
+      <input type="password"
+             formControlName="password"
+             class="loginForm__input"
+             placeholder="{{'login.password' | translate}}" required>
+    </div>
+    <div class="loginForm__controls">
+      <button type="submit"
+              [disabled]="!loginForm.valid"
+              class="loginForm__button" translate>login.login</button>
+      <p class="loginForm__link" translate>login.forgot-password</p>
+      <p class="loginForm__link" translate [routerLink]="['/create-an-account']">
+        {{'login.create-an-account' | translate}}</p>
+    </div>
+  </form>
+</div>
+
+
+

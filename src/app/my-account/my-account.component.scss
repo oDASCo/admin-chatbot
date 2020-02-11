@@ -1,0 +1,48 @@
+.accountContainer {
+  padding-top: 80px;
+  &__text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 50px;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+  &__field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    max-width: 320px;
+  }
+  &__input {
+    width: 100%;
+    padding: 15px 10px;
+    border-radius: 4px;
+    border: solid 1px #d0d0d0;
+    background-color: #ffffff;
+    outline: none;
+    font-size: 0.9rem;
+  }
+
+  &__input.error {
+    border: solid 1px #cb0000;
+  }
+
+  &__tip {
+    color: #cb0000;
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+
+  &__label {
+    font-size: 1rem;
+    color: #253342;
+    margin-bottom: 15px;
+  }
+
+  .loginForm__button{
+    margin-top: 20px;
+    max-width: 320px;
+  }
+}

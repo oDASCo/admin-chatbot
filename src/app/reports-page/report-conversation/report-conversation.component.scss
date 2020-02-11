@@ -1,0 +1,102 @@
+@import "../../../assets/styles/variables";
+
+.reportsPage {
+  &__messages {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: 95vh;
+    overflow-y: scroll;
+    padding: 70px 0;
+  }
+
+  &__messagesInner {
+    display: flex;
+    flex-direction: column;
+    width: 99%;
+  }
+
+  &__message {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__messageIn {
+    align-self: flex-start;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__messageInText {
+    background-color: $dark-blue;
+    color: #ffffff;
+    padding: 15px 30px;
+    border-radius: 0 27.5px 27.5px 27.5px;
+    margin-bottom: 20px;
+    min-width: 210px;
+  }
+
+  &__messageInIntent {
+    display: flex;
+    font-size: 1.1rem;
+    align-items: center;
+
+    span {
+      margin-right: 12px;
+    }
+  }
+
+  &__messageInIcon {
+    width: 15px;
+    height: 15px;
+    margin-left: 18px;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__messageInIcon.edit {
+    background-image: url("../../../assets/img/icons/edit-material.svg");
+  }
+
+  &__messageInIcon.close {
+    background-image: url("../../../assets/img/icons/close.svg");
+    margin-top: 5px;
+  }
+
+  &__messageOut {
+    border: solid 1px #e9e9ee;
+    background-color: #f2f2f6;
+    padding: 15px 30px;
+    border-radius: 27.5px 0 27.5px 27.5px;
+    color: #253342;
+    align-self: flex-end;
+    margin-bottom: 60px;
+  }
+
+  &__messageInNewIntent {
+    display: flex;
+    margin: 0 10px;
+    align-items: center;
+  }
+
+  &__messageArrowIcon {
+    width: 23px;
+    height: 19px;
+    background-image: url("../../../assets/img/icons/right-arrow.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: 10px;
+  }
+
+  &__messageNewIntent {
+    color: #3fb0e8;
+  }
+}

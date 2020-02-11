@@ -1,0 +1,112 @@
+<form class="addIntentsPage" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="addIntentsPage__head">
+    <p class="addIntentsPage__title mainTitle" translate>intent.add-intent</p>
+    <button class="content__btn" type="submit" translate>intent.add-intent</button>
+  </div>
+  <div class="addIntentsPage__body">
+    <div class="addIntentsPage__field">
+      <p class="addIntentsPage__fieldText">{{'intent.intent-name' | translate}}:</p>
+      <div class="addIntentsPage__fieldInputMain">
+        <input class="addIntentsPage__fieldInput"
+               [ngClass]="{'empty': isIntentNameEmpty}"
+               formControlName="intentName"
+               (input)="onAddIntentName()"
+        />
+        <span
+          *ngIf="(form.get('intentName').invalid && form.get('intentName').touched) || isIntentNameEmpty"
+        >Please provide an intent name.</span>
+      </div>
+    </div>
+    <div class="addIntentsPage__dropDownLines">
+      <div class="addIntentsPage__dropDownLine" appDropdown>
+        <div class="addIntentsPage__dropDownTitle">
+          <p translate>examples <span *ngIf="isEmptyExamples">Please, add at least one example</span></p>
+          <div class="addIntentsPage__dropDownTitleIcon  dropdown"></div>
+        </div>
+        <div class="addBlockListItem inner" *ngFor="let example of examples; let i = index">
+          <div class="addBlockListItemMain">
+            <p class="addBlockListItemText addIntent"
+               [contentEditable]="example.editMode"
+               (input)="onEditExample($event)"
+            >
+              <span *ngFor="let word of example.example"
+                    [ngClass]="{'find': word.entityName}"
+              >{{word.word + ' '}}</span>
+            </p>
+            <div class="popup__addBlockListItemBtns" *ngIf="example.editMode">
+              <div class="addBlockCancelBtn" (click)="cancelEditExample(i)" translate>cancel</div>
+              <div class="addBlockSaveBtn" (click)="saveEditExample(i)" translate>save</div>
+            </div>
+            <div class="addBlockListItemBtns" *ngIf="!example.editMode">
+              <div class="popup__addBlockListItemArrow open"
+                   *ngIf="example.entities?.length > 0 && !example.isEntitiesOpen"
+                   (click)="openEntities(example, i)"></div>
+              <div class="popup__addBlockListItemArrow close"
+                   *ngIf="example.entities?.length > 0 && example.isEntitiesOpen"
+                   (click)="closeEntities(example, i)"></div>
+              <div class="addBlockListItemBtn delete" (click)="deleteExample(i)"></div>
+              <div class="addBlockListItemBtn edit" (click)="editExample(i)"></div>
+            </div>
+          </div>
+          <div *ngIf="example.isEntitiesOpen">
+            <div class="addBlockListInner" *ngFor="let entity of example.entities; let ind = index">
+              <div *ngIf="entity?.entityExamples">
+                <div class="addBlockListInner__row">
+                  <p>{{'entity.entity-name' | translate}}: <span>{{entity.entityName}}</span></p>
+                  <div class="addBlockListInner__rowBtn" translate (click)="deleteEntity(example, ind)">remove</div>
+                </div>
+                <div class="addBlockListInner__rowName">
+                  <p translate>entity.entity-example</p>
+                  <div class="addBlockListInner__select" appClickOutside (clickOutside)="closeSelect(example, ind)">
+                    <div class="addBlockListInner__selectValue"
+                         (click)="openSelect(example, ind)">{{entity.selectedValue}}</div>
+                    <div class="addBlockListInner__selectList" *ngIf="entity.isSelectOpen">
+                      <div class="addBlockListInner__selectListInner">
+                        <div class="addBlockListInner__selectOption"
+                             (click)="changeSelectValue(entityExample, example, ind)"
+                             *ngFor="let entityExample of entity?.entityExamples"
+                        >{{entityExample}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form class="addIntentsPage__dropDownField"
+              [formGroup]="exampleForm"
+              (ngSubmit)="onExampleAdd()"
+        >
+          <input class="addIntentsPage__dropDownFieldInput" placeholder="Add example" formControlName="newExample"/>
+          <button class="addIntentsPage__dropDownFieldBtn" type="submit" translate>add</button>
+        </form>
+      </div>
+      <div class="addIntentsPage__dropDownLine" appDropdown>
+        <div class="addIntentsPage__dropDownTitle">
+          <p translate>responses</p>
+          <div class="addIntentsPage__dropDownTitleIcon  dropdown"></div>
+        </div>
+        <div class="addBlockListItem" *ngFor="let response of responses; let i = index">
+          <p class="addBlockListItemText"
+             [contentEditable]="response.editMode"
+             (input)="onEditResponse($event)"
+          >{{response.name}}</p>
+          <div class="popup__addBlockListItemBtns" *ngIf="response.editMode">
+            <div class="addBlockCancelBtn" (click)="cancelEditResponse(i)" translate>cancel</div>
+            <div class="addBlockSaveBtn" (click)="saveEditResponse(i)" translate>save</div>
+          </div>
+          <div class="addBlockListItemBtns" *ngIf="!response.editMode">
+            <div class="addBlockListItemBtn delete" (click)="deleteResponse(i)"></div>
+            <div class="addBlockListItemBtn edit" (click)="editResponse(i)"></div>
+          </div>
+        </div>
+        <form class="addIntentsPage__dropDownField" [formGroup]="responseForm" (ngSubmit)="onResponseAdd()">
+          <input class="addIntentsPage__dropDownFieldInput" placeholder="Add response" formControlName="newResponse"/>
+          <button class="addIntentsPage__dropDownFieldBtn" translate>add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</form>

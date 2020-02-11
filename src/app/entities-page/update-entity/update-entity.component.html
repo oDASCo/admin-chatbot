@@ -1,0 +1,50 @@
+<form class="addIntentsPage" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="addIntentsPage__head">
+    <p class="addIntentsPage__title mainTitle" translate>entity.update-entity</p>
+    <button class="content__btn" type="submit" translate>train</button>
+  </div>
+  <div class="addIntentsPage__body">
+    <div class="addIntentsPage__field">
+      <p class="addIntentsPage__fieldText">{{'entity.entity-name' | translate}}:</p>
+      <input class="addIntentsPage__fieldInput" formControlName="entityName"/>
+    </div>
+    <div class="addIntentsPage__dropDownLines">
+      <div class="addIntentsPage__dropDownLine" appDropdown>
+        <div class="addIntentsPage__dropDownTitle">
+          <p translate>examples</p>
+          <div class="addIntentsPage__dropDownTitleIcon  dropdown"></div>
+        </div>
+        <div class="addBlockListItem" *ngFor="let example of examples; let i = index">
+          <p class="addBlockListItemText"
+             [contentEditable]="example.editMode"
+             (input)="onEditExample($event)"
+          >{{example.example}}</p>
+          <div class="popup__addBlockListItemBtns" *ngIf="example.editMode">
+            <div class="addBlockCancelBtn" (click)="cancelEditExample(i)" translate>cancel</div>
+            <div class="addBlockSaveBtn" (click)="saveEditExample(i)" translate>save</div>
+          </div>
+          <div class="addBlockListItemBtns" *ngIf="!example.editMode">
+            <div class="addBlockListItemBtn delete" (click)="deleteExample(i)"></div>
+            <div class="addBlockListItemBtn edit" (click)="editExample(i)"></div>
+          </div>
+        </div>
+        <form class="addIntentsPage__dropDownField"
+              [formGroup]="exampleForm"
+              (ngSubmit)="onExampleAdd()"
+        >
+          <input class="addIntentsPage__dropDownFieldInput"
+                 placeholder="{{'add-example' | translate}}"
+                 formControlName="newExample"
+          />
+          <button class="addIntentsPage__dropDownFieldBtn" type="submit" translate>add</button>
+        </form>
+      </div>
+    </div>
+    <div class="addIntentsPage__deleteBtn"
+         (click)="deleteEntity()"
+         *ngIf="authService.user.allowedActions.DELETE_ENTITY"
+         translate>
+      entity.delete-entity
+    </div>
+  </div>
+</form>

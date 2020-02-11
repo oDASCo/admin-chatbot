@@ -1,0 +1,87 @@
+<div class="sidebar">
+  <div class="sidebar__logo"></div>
+  <div class="sidebar__chatbot">
+    <div class="addBlockListInner__select"
+         appClickOutside (clickOutside)="closeSelect()">
+      <div class="addBlockListInner__selectValue" (click)="openSelect()">{{selectedChatbot}}</div>
+      <div class="addBlockListInner__selectList" *ngIf="openedSelect && authService.user.allowedActions.SET_CHATBOT_FOR_USER">
+        <div class="addBlockListInner__selectListInner">
+          <div class="addBlockListInner__selectOption"
+               *ngFor="let chatbot of chatbots"
+               (click)="changeSelectedValue(chatbot)"
+          >{{chatbot.name}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="createChatbotForm" (ngSubmit)="createChatbot()"
+          *ngIf="createChatbotMode && authService.user.allowedActions.CREATE_CHATBOT">
+      <input class="loginForm__input" formControlName="chatbotName"/>
+      <div>
+        <button class="content__btn" type="submit">Create</button>
+        <button class="trainBtn" type="submit" (click)="closeCreateChatbot()">Cancel</button>
+      </div>
+    </form>
+    <button class="sidebar__chatbotBtn content__btn"
+            *ngIf="!createChatbotMode && authService.user.allowedActions.CREATE_CHATBOT"
+            (click)="openCreateChatbot()">Create new chatbot</button>
+  </div>
+  <div class="sidebar__nav">
+    <div class="sidebar__navItem"
+         [routerLink]="['/intents-page', 'intents']"
+         [queryParams]="{ pageNumber: 1 }"
+         [ngClass]="{'active': activeRoute === 'intents-page'}"
+    >
+      <span class="sidebar__navItemIcon">
+        <object type="image/svg+xml" data="../../assets/img/icons/message_material.svg">
+        </object>
+      </span>
+      <p>{{'intent.intents' | translate}}</p>
+    </div>
+    <div class="sidebar__navItem"
+         [routerLink]="['/entities-page', 'entities']"
+         [queryParams]="{ pageNumber: 1 }"
+         [ngClass]="{'active': activeRoute === 'entities-page'}"
+    >
+       <span class="sidebar__navItemIcon">
+        <object type="image/svg+xml" data="../../assets/img/icons/subdirectory-arrow-right-material.svg">
+        </object>
+      </span>
+      <p>{{'entity.entities' | translate}}</p>
+    </div>
+    <div class="sidebar__navItem"
+         [routerLink]="['/reports-page']"
+         [ngClass]="{'active': activeRoute === 'reports-page'}"
+    >
+       <span class="sidebar__navItemIcon">
+        <object type="image/svg+xml" data="../../assets/img/icons/ion-android-document-ionicons.svg">
+        </object>
+      </span>
+      <p>{{'report' | translate}}</p>
+    </div>
+  </div>
+  <div class="sidebar__nav sidebar__userNav"  [routerLink]="['/my-account']"
+       [ngClass]="{'active': activeRoute === 'my-account'}">
+    <div class="sidebar__navItem">
+       <span class="sidebar__navItemIcon">
+        <object type="image/svg+xml" data="../../assets/img/icons/account-circle-material.svg">
+        </object>
+      </span>
+      <p>{{'my-account' | translate}}</p>
+    </div>
+    <div class="sidebar__navItem" [routerLink]="['/admin-requests']" *ngIf="authService.user.allowedActions.ADMIN_APPROVE_USER">
+       <span class="sidebar__navItemIcon">
+        <object type="image/svg+xml" data="../../assets/img/icons/account-circle-material.svg">
+        </object>
+      </span>
+      <p>Account requests</p>
+    </div>
+    <div class="sidebar__navItem" (click)="logOut()">
+       <span class="sidebar__navItemIcon">
+        <object type="image/svg+xml" data="../../assets/img/icons/invalid-name.svg">
+        </object>
+      </span>
+      <p>{{'log-out' | translate}}</p>
+    </div>
+  </div>
+</div>

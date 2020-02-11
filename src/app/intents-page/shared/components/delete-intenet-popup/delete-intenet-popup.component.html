@@ -1,0 +1,17 @@
+<div class="popup-container" *ngIf="popupData?.popupType === 'delete_intent'">
+  <div class="popup">
+    <p class="popup__title">{{popupData.popupTitle}}</p>
+    <div class="popup__text" *ngIf="popupData.popupType === 'delete_intent'">{{popupData.popupText}}</div>
+    <div class="popup__btns">
+      <button class="popup__btn cancelBtn" id="cancelBtn" (click)="cancel()" translate>cancel</button>
+      <button class="popup__btn mainBtn"
+              id="deleteBtn"
+              (click)="onBtnClick()"
+              *ngIf="popupData.popupType === 'delete_intent'"
+              translate
+      >
+        delete
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<div class="content">
+  <div class="content__controls">
+    <div class="content__search">
+      <input
+        class="content__searchInput"
+        placeholder="Search intents"
+        (input)="onSearch($event)"
+      />
+    </div>
+  </div>
+  <div class="content__list">
+    <div class="content__listItem" *ngFor="let intent of intents">
+      <div class="content__listItemInfo">
+        <span class="content__listItemTitle">{{intent.name}}</span>
+        <span class="content__listItemSubtitle">
+             {{intent.examples.length}} {{ 'example' | translate}}
+          , {{intent.responses.length}} {{ 'response' | translate}}
+        </span>
+      </div>
+      <div class="content__listItemBtns">
+        <p class="content__listItemText" *ngIf="addMessageExamples?.id === intent.id">
+          {{addMessageExamples?.text}}</p>
+        <p class="content__listItemText" *ngIf="addMessageResponses?.id === intent.id">
+          {{addMessageResponses?.text}}</p>
+        <div class="content__listItemBtn delete"
+             (click)="openDeletePopup(intent.id)"
+             *ngIf="authService.user.allowedActions.DELETE_INTENT"
+        ></div>
+        <div class="content__listItemBtn edit"
+             [routerLink]="['/intents-page', 'update-intent']"
+             [queryParams]="{ intent: intent.id}"
+             *ngIf="authService.user.allowedActions.UPDATE_INTENT"
+        >
+        </div>
+        <div class="content__listItemBtn options dropdown" appDropdown>
+          <div class="content__listItemOptions">
+            <div class="content__listItemOption"
+                 *ngIf="authService.user.allowedActions.ADD_EXAMPLES_TO_INTENT"
+                 (click)="openAddExamplePopup(intent.id)"
+                 translate
+            >add-example
+            </div>
+            <div class="content__listItemOption"
+                 (click)="openAddResponsePopup(intent.id)"
+                 *ngIf="authService.user.allowedActions.ADD_RESPONSES_TO_INTENT"
+                 translate
+            >add-response
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content__btnContainer">
+    <button class="content__btn withIcon"
+            [routerLink]="['/intents-page', 'add-intent']"
+            *ngIf="authService.user.allowedActions.CREATE_INTENT"
+    >
+      <object class="content__btnIcon" type="image/svg+xml" data="../../../../../assets/img/icons/group.svg">
+      </object>
+      <span translate>intent.add-new-intent</span>
+    </button>
+  </div>
+  <div class="content__pagination" *ngIf="pagination">
+    <span class="content__paginationBtn prev"
+          [routerLink]
+          [queryParams]="{ pageNumber: +page - 1 }"
+          *ngIf="+page !== 1"
+    >
+    </span>
+    <div class="content__paginationItems">
+      <div
+        class="content__paginationItem"
+        *ngFor="let pageNum of paginationsPages"
+        [routerLink] [queryParams]="{ pageNumber: pageNum }"
+        routerLinkActive="active"
+      >
+        {{pageNum}}
+      </div>
+    </div>
+    <span class="content__paginationBtn next"
+          [routerLink]
+          [queryParams]="{ pageNumber: +page + 1 }"
+          *ngIf="+page !== paginationNumber"
+    >
+    </span>
+  </div>
+</div>
+
+<app-delete-intenet-popup
+  [popupData]="deleteIntentPopupData"
+  (btnAction)='onBtnAction($event)'
+>
+</app-delete-intenet-popup>
+<app-add-examples-popup
+  [popupData]="addExamplePopupData"
+  (btnAction)='onBtnAction($event)'
+>
+</app-add-examples-popup>
+<app-add-response-popup
+  [popupData]="addResponsePopupData"
+  (btnAction)='onBtnAction($event)'
+>
+</app-add-response-popup>

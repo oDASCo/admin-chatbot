@@ -1,0 +1,34 @@
+<div class="popup-container" *ngIf="popupData?.popupType === 'intent_addResponse'">
+  <div class="popup">
+    <p class="popup__title">{{popupData.popupTitle}}</p>
+    <div class="popup__addBlock">
+      <p class="popup__addBlockText">{{'intent.intent-name' | translate}}: <span>{{popupData?.intentId}}</span></p>
+      <div class="popup__addBlockList">
+        <div class="popup__addBlockListItem" *ngFor="let response of responses; let i = index">
+          <p class="popup__addBlockListItemText"
+             [contentEditable]="response.editMode"
+             (input)="onEdit($event)"
+          >{{response.name}}</p>
+          <div class="popup__addBlockListItemBtns" *ngIf="response.editMode">
+            <div class="addBlockCancelBtn" (click)="cancelEdit(i)" translate>cancel</div>
+            <div class="addBlockSaveBtn" (click)="saveEdit(i)" translate>save</div>
+          </div>
+          <div class="popup__addBlockListItemBtns" *ngIf="!response.editMode">
+            <div class="popup__addBlockListItemBtn delete" (click)="deleteResponse(i)"></div>
+            <div class="popup__addBlockListItemBtn edit" (click)="editResponse(i)"></div>
+          </div>
+        </div>
+        <form class="popup__addBlockListField" [formGroup]="responseForm" (ngSubmit)="onResponseAdd()">
+          <input class="popup__addBlockListFieldInput"
+                 placeholder="{{'add-response' | translate}}"
+                 formControlName="newResponse"/>
+          <button class="popup__addBlockListFieldBtn" translate>add</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup__btns">
+      <button class="popup__btn cancelBtn" id="cancelBtn" (click)="cancel()" translate>cancel</button>
+      <button class="popup__btn mainBtn" id="addResponses" (click)="onBtnClick()" translate>add-all-responses</button>
+    </div>
+  </div>
+</div>

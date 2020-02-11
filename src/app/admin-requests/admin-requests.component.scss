@@ -1,0 +1,47 @@
+@import "../../assets/styles/variables";
+
+.adminTable {
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  font-size: 1.1rem;
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 18px 30px;
+    opacity: 0.5;
+  }
+
+  &__headCol {
+    width: 24%;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__line {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 18px 30px;
+    border: 1px solid #dadada;
+    align-items: center;
+  }
+
+  &__lineCol {
+    width: 24%;
+  }
+
+  &__lineBtn {
+    border-radius: 23px;
+    font-size: 0.9rem;
+    padding: 7px 18px;
+    color: #fff;
+    border: none;
+    background-color: $dark-blue;
+  }
+}

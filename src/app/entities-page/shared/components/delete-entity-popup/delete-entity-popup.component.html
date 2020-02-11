@@ -1,0 +1,18 @@
+<div class="popup-container" *ngIf="popupData?.popupType === 'delete_entity'">
+  <div class="popup">
+    <p class="popup__title">{{popupData.popupTitle}}</p>
+    <div class="popup__text" *ngIf="popupData.popupType === 'delete_entity'">
+      {{popupData.popupText}}
+    </div>
+    <div class="popup__btns">
+      <button class="popup__btn cancelBtn" id="cancelBtn" (click)="cancel()" translate>cancel</button>
+      <button class="popup__btn mainBtn" id="deleteBtn"
+              (click)="onBtnClick()"
+              *ngIf="popupData.popupType === 'delete_entity'"
+              translate
+      >
+        delete
+      </button>
+    </div>
+  </div>
+</div>

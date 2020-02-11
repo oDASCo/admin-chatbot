@@ -1,0 +1,36 @@
+<div class="content">
+  <div class="content__controls">
+    <div class="content__search">
+      <input
+        class="content__searchInput"
+        placeholder="Search fallback intents"
+        [(ngModel)]="searchStr"
+      />
+    </div>
+    <button class="content__btn withIcon">
+      <object class="content__btnIcon" type="image/svg+xml" data="../../../../../assets/img/icons/group.svg">
+      </object>
+    {{'fallback.add-new-fallback' | translate}}
+    </button>
+  </div>
+  <div class="content__list">
+    <div class="content__listItem" *ngFor="let fallback of fallbacks | filter: searchStr">
+      <div class="content__listItemInfo">
+        <span class="content__listItemTitle">
+          {{fallback.description}}
+        </span>
+        <span class="content__listItemSubtitle">3 {{'example' | translate}}, 2 {{'response' | translate}}</span>
+      </div>
+      <div class="content__listItemBtns">
+        <div class="content__listItemBtn delete"></div>
+        <div class="content__listItemBtn edit"></div>
+        <div class="content__listItemBtn options dropdown" appDropdown>
+          <div class="content__listItemOptions ">
+            <div class="content__listItemOption" translate>add-example</div>
+            <div class="content__listItemOption" translate>add-response</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

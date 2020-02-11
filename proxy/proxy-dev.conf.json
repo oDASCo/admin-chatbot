@@ -1,0 +1,9 @@
+{
+  "/backend/api": {
+    "target": "http://srv-dev-01:9797/",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/backend/api": "/"
+    }
+  }
+}

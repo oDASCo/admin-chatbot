@@ -1,0 +1,46 @@
+<div class="app-wrapper">
+  <app-sidebar></app-sidebar>
+  <div class="main-container">
+    <div class="accountContainer" *ngIf="authService.user.allowedActions.CHANGE_USER_PASSWORD">
+      <p class="accountContainer__text">
+        Change password
+      </p>
+      <form class="accountContainer__form" [formGroup]="changePassForm" (ngSubmit)="onSubmit()">
+        <div class="accountContainer__field">
+          <label class="accountContainer__label">Old password</label>
+          <input class="accountContainer__input"
+                 type="password"
+                 formControlName="oldPassword"
+                 placeholder="Old password"
+                 [ngClass]="{'error': !changePassForm.controls.oldPassword.valid && formSubmitted}"
+          />
+        </div>
+        <div class="accountContainer__field">
+          <label class="accountContainer__label">New password</label>
+          <input class="accountContainer__input"
+                 type="password"
+                 formControlName="newPassword"
+                 placeholder="New password"
+                 [ngClass]="{'error': (formSubmitted &&
+                 (changePassForm.value.newPassword !== changePassForm.value.confirmPassword))
+                 || (!changePassForm.controls.newPassword.valid && formSubmitted)}"/>
+        </div>
+        <div class="accountContainer__field">
+          <label class="accountContainer__label">Confirm new password</label>
+          <input class="accountContainer__input"
+                 type="password"
+                 formControlName="confirmPassword"
+                 placeholder="Confirm new password"
+                 [ngClass]="{'error': (formSubmitted &&
+                 (changePassForm.value.newPassword !== changePassForm.value.confirmPassword))
+                 || (!changePassForm.controls.confirmPassword.valid && formSubmitted)}"/>
+        </div>
+        <button type="submit" class="loginForm__button">Save</button>
+        <span class="accountContainer__tip" *ngIf="formSubmitted && (changePassForm.value.newPassword !== changePassForm.value.confirmPassword)">
+          Passwords doesn't match</span>
+        <span class="accountContainer__tip" *ngIf="formSended">
+          Password changed successfully!</span>
+      </form>
+    </div>
+  </div>
+</div>

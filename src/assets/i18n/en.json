@@ -1,0 +1,78 @@
+{
+  "intent": {
+    "add-new-intent": "Add new intent",
+    "add-intent": "Add intent",
+    "intent-name": "Intent name",
+    "update-intent": "Update intent",
+    "delete-intent": "Delete Intent",
+    "intents": "Intents",
+    "intent": "intent",
+    "add-example-to-intent": "Add Example to Intent"
+  },
+  "entity": {
+    "entity-example": "Entity example",
+    "entity-name": "Entity name",
+    "entities": "Entities",
+    "add-entity": "Add Entity",
+    "add-new-entity": "Add new entity",
+    "update-entity": "Update Entity",
+    "delete-entity": "Delete Entity"
+  },
+  "fallback": {
+    "add-new-fallback": "Add new fallback",
+    "fallbacks": "Fallbacks"
+  },
+  "reports": {
+    "conversations": "Conversations",
+    "conversation": "Conversation",
+    "confidence-level": " Confidence Level",
+    "the-lowest-confidence-level": "The lowest confidence level in conversations",
+    "lowest-confidence-level": "Lowest Confidence Level"
+  },
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "login": "Log in",
+    "email": "Email",
+    "forgot-password": "Forgot password",
+    "login-to-chatbot": "Login to Chatbot Portal",
+    "create-an-account": "Create an account"
+  },
+  "register": {
+    "please-check-your-email": "Please check your email to complete registration",
+    "full-name": "Full name",
+    "confirm-password": "Confirm password",
+    "mobile-phone": "Mobile phone",
+    "chatbot-name": "Chatbot name",
+    "incorrect-phone": "Incorrect mobile phone",
+    "please-fill-all-fields": "Please fill all required fields",
+    "register": "Register",
+    "passwords-doesnt-match": "Passwords doesn't match",
+    "incorrect-email": "Incorrect e-mail"
+  },
+  "admin": {
+    "email-activation": "Email activation",
+    "admin-approval": "Admin Approval",
+    "approve": "Approve"
+  },
+  "example": "example",
+  "response": "response",
+  "add-example": "Add example",
+  "add-response": "Add response",
+  "train": "Train",
+  "examples": "Examples",
+  "responses": "Responses",
+  "cancel": "cancel",
+  "save": "save",
+  "remove": "remove",
+  "add": "Add",
+  "add-all-examples": "Add all examples",
+  "add-all-responses": "Add all responses",
+  "delete": "delete",
+  "project-name": "Project name",
+  "report": "Report",
+  "my-account": "My account",
+  "log-out": "Log Out",
+  "apply": "Apply",
+  "date": "Date"
+}

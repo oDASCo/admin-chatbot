@@ -1,0 +1,82 @@
+<div class="loginFormContainer">
+  <div class="loginForm formEnd" *ngIf="formSended">
+    <p>{{'register.please-check-your-email' | translate}}</p>
+    <button class="formEnd__button" (click)="returnToLogin()">OK</button>
+  </div>
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+    *ngIf="!formSended"
+    class="loginForm signUp"
+  >
+    <div class="loginForm__field">
+      <label class="loginForm__label">{{'register.full-name' | translate}}*:</label>
+      <input type="text"
+             formControlName="fullName"
+             class="loginForm__input"
+             placeholder="{{'register.full-name' | translate}}"
+             [ngClass]="{'error': !registerForm.controls.fullName.valid && formSubmitted}"
+             required>
+    </div>
+    <div class="loginForm__field">
+      <label class="loginForm__label">{{'login.email' | translate }}*:</label>
+      <input type="text"
+             formControlName="username"
+             class="loginForm__input"
+             placeholder="{{'login.username' | translate}}"
+             required
+             [ngClass]="{'error': !registerForm.controls.username.valid && formSubmitted}"
+      >
+      <span class="formTip" *ngIf="!registerForm.controls.username.valid && formSubmitted">
+        {{'register.incorrect-email' | translate}}</span>
+    </div>
+    <div class="loginForm__field">
+      <label class="loginForm__label">{{'login.password' | translate }}*:</label>
+      <input type="password"
+             formControlName="password"
+             class="loginForm__input"
+             [ngClass]="{'error': (!registerForm.controls.password.valid && formSubmitted)
+             || (registerForm.value.password !== registerForm.value.confirmPassword && formSubmitted)}"
+             placeholder="{{'login.password' | translate}}" required>
+      <span class="formTip"
+            *ngIf="(registerForm.value.password !== registerForm.value.confirmPassword) && formSubmitted">
+        {{'register.passwords-doesnt-match' | translate}}</span>
+    </div>
+
+    <div class="loginForm__field">
+      <label class="loginForm__label">Confirm password*:</label>
+      <input type="password"
+             formControlName="confirmPassword"
+             class="loginForm__input"
+             [ngClass]="{'error': (!registerForm.controls.confirmPassword.valid && formSubmitted)
+             || (registerForm.value.password !== registerForm.value.confirmPassword && formSubmitted)}"
+             placeholder="Confirm password" required>
+    </div>
+
+
+    <div class="loginForm__field">
+      <label class="loginForm__label">{{'register.mobile-phone' | translate}}*:</label>
+      <input type="text"
+             formControlName="phone"
+             class="loginForm__input"
+             [ngClass]="{'error': !registerForm.controls.phone.valid && formSubmitted}"
+             placeholder="{{'register.mobile-phone' | translate}}" required>
+      <span class="formTip" *ngIf="!registerForm.controls.phone.valid && formSubmitted">
+        {{'register.incorrect-phone' | translate}}</span>
+    </div>
+    <div class="loginForm__field">
+      <label class="loginForm__label">{{'register.chatbot-name' | translate}}*:</label>
+      <input type="text"
+             formControlName="chatbotName"
+             class="loginForm__input"
+             [ngClass]="{'error': !registerForm.controls.chatbotName.valid && formSubmitted}"
+             placeholder="{{'register.chatbot-name' | translate}}" required>
+    </div>
+    <div class="loginForm__controls">
+      <span class="formTip" *ngIf="!registerForm.valid && formSubmitted">
+        {{'register.please-fill-all-fields' | translate}}</span>
+      <button type="submit" class="loginForm__button" translate>{{'register.register' | translate}}</button>
+    </div>
+    <p class="loginForm__link" translate [routerLink]="['/login']">{{'login.login' | translate}}</p>
+  </form>
+</div>

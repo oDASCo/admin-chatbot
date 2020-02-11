@@ -1,0 +1,122 @@
+<div class="app-wrapper reports">
+  <app-sidebar></app-sidebar>
+  <div class="main-container">
+    <div class="reportsPage">
+      <div class="reportsPage__left">
+        <div class="reportsPage__head">
+          <p class="reportsPage__title" translate="">
+            reports.conversations
+          </p>
+          <button class="reportsPage__btn content__btn" translate="">
+            train
+          </button>
+        </div>
+        <div class="reportsPage__filters">
+          <div class="reportsPage__filterBtnBlock">
+            <div class="reportsPage__filterBtn" (click)="openLevelFilter()"
+                 [ngClass]="{'active': isLevelFilter}" translate="">
+              reports.confidence-level
+            </div>
+            <div class="reportsPage__levelFilter" *ngIf="isLevelFilter">
+              <p class="reportsPage__levelFilterTitle" translate="">
+                reports.the-lowest-confidence-level
+              </p>
+              <div class="reportsPage__levelRange">
+                <form [formGroup]="sliderForm" class="custom-slider">
+                  <ng5-slider [options]="options" formControlName="sliderControl"></ng5-slider>
+                  <div class="rangeValues">
+                    <span class="rangeValue start">{{ sliderForm.value.sliderControl[0] }}</span>
+                    <span class="rangeValue end">{{ sliderForm.value.sliderControl[1] }}</span>
+                  </div>
+                </form>
+              </div>
+              <div class="reportsPage__levelBtns">
+                <button class="reportsPage__levelBtn cancelBtn" (click)="openLevelFilter()" translate>cancel</button>
+                <button class="reportsPage__levelBtn mainBtn" (click)="getConversationsByLevel()" translate>apply
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="reportsPage__filterBtnBlock">
+            <div class="reportsPage__filterBtn" (click)="openDateFilter()" [ngClass]="{'active': isDateFilter}"
+                 translate>
+              date
+            </div>
+            <div class="reportsPage__levelFilter" *ngIf="isDateFilter">
+              <app-calendar (btnAction)='getDate($event)'></app-calendar>
+              <div class="reportsPage__levelBtns">
+                <button class="reportsPage__levelBtn cancelBtn" (click)="openDateFilter()" translate>cancel</button>
+                <button class="reportsPage__levelBtn mainBtn" (click)="getConversationsByDate()" translate>apply
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="reportsPage__filterBtnBlock">
+            <div class="reportsPage__filterBtn"
+                 (click)="openIntentFilter()"
+                 [ngClass]="{'active': isIntentFilter}"
+                 translate
+            >
+              intent.intents
+            </div>
+            <div class="reportsPage__levelFilter" *ngIf="isIntentFilter">
+              <div class="content__search">
+                <input
+                  class="content__searchInput"
+                  placeholder="Search intents"
+                  [(ngModel)]="searchStr"
+                />
+              </div>
+              <div class="reportsPage__intentsListFilter">
+                <div class="reportsPage__intentsListFilterInner">
+                  <div class="reportsPage__intentFilterItem" *ngFor="let intent of intents | filter: searchStr">
+                    <label class="reportsPage__checkboCcontainer"
+                           (click)="checkIntent(intent)"
+                    >{{intent.name}}
+                      <input type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="reportsPage__levelBtns">
+                <button class="reportsPage__levelBtn cancelBtn" (click)="openIntentFilter()" translate>cancel</button>
+                <button class="reportsPage__levelBtn mainBtn" (click)="getConversationsByIntents()" translate>apply
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reportsPage__table">
+          <div class="reportsPage__tableHead">
+            <p class="reportsPage__tableHeadItem">
+              {{'reports.conversation' | translate}}
+              {{'date' | translate}}
+            </p>
+            <p class="reportsPage__tableHeadItem" translate>
+              reports.lowest-confidence-level
+            </p>
+          </div>
+          <div class="reportsPage__tableBody">
+            <div class="reportsPage__tableBodyInner">
+              <div class="reportsPage__tableItem" *ngFor="let conversation of conversations"
+                   [routerLink]="[conversation.sessionId]"
+                   [routerLinkActive]="'active'"
+              >
+                <div class="reportsPage__tableItemText date">
+                  {{conversation.conversationDate}}
+                </div>
+                <div class="reportsPage__tableItemText level">
+                  {{conversation.lowestConfidenceLevel | number:'1.2'}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reportsPage__right">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

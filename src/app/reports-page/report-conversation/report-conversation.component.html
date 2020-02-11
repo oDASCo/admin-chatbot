@@ -1,0 +1,44 @@
+<div class="reportsPage__messages">
+  <div class="reportsPage__messagesInner">
+    <div class="reportsPage__message" *ngFor="let message of messages; let i = index">
+      <div class="reportsPage__messageIn">
+        <div class="reportsPage__messageInText">{{message.text}}</div>
+        <div class="reportsPage__messageInIntent">
+          <span>{{'intent.intent' | translate}}:</span>
+          <p *ngIf="!message.isChangeIntentMode">{{message.intentName}}</p>
+          <div class="reportsPage__messageInNewIntent" *ngIf="message.newIntentName">
+            <span class="reportsPage__messageArrowIcon"></span>
+            <span class="reportsPage__messageNewIntent">{{message.newIntentName}}</span>
+          </div>
+          <div class="addBlockListInner__select"
+               appClickOutside (clickOutside)="closeSelect(i)"
+               *ngIf="message.isChangeIntentMode">
+            <div class="addBlockListInner__selectValue" (click)="openSelect(i)">{{message.selectedValue}}</div>
+            <div class="addBlockListInner__selectList" *ngIf="message.isSelectOpen">
+              <div class="addBlockListInner__selectListInner">
+                <div class="addBlockListInner__selectOption"
+                     *ngFor="let intent of intents"
+                     (click)="changeSelectedValue(i, intent.name, message, intent.id)"
+                >{{intent.name}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="reportsPage__messageInIcon edit"
+               (click)="editIntent(i)"
+               *ngIf="!message.isChangeIntentMode"
+          ></div>
+          <div class="reportsPage__messageInIcon close"
+               (click)="closeEditIntent(i)"
+               *ngIf="message.isChangeIntentMode"
+          ></div>
+        </div>
+      </div>
+      <div class="reportsPage__messageOut">{{message.response}}</div>
+    </div>
+  </div>
+</div>
+<app-change-message-intent-popup
+  [popupData]="popupData"
+  (btnAction)='onIntentChange($event)'
+></app-change-message-intent-popup>
